@@ -3,40 +3,40 @@ import Web3
 import Alamofire
 import BigInt
 
-struct StateGetRuntimeVersionResponse: JSONRpcResponse, Codable {
-    var id: UInt16?
-    var jsonrpc: String?
-    var error: JsonRpcError?
-    var result: RuntimeVersion?
+public struct StateGetRuntimeVersionResponse: JSONRpcResponse, Codable {
+    public var id: UInt16?
+    public var jsonrpc: String?
+    public var error: JsonRpcError?
+    public var result: RuntimeVersion?
 }
 
 public struct RuntimeVersion: Codable {
-    var specName: String
-    var implName: String
-    var authoringVersion: UInt64
-    var specVersion: UInt64
-    var implVersion: UInt64
-    var apis: [[EthereumData: UInt64]]
-    var transactionVersion: UInt64
-    var stateVersion: UInt64
+    public var specName: String
+    public var implName: String
+    public var authoringVersion: UInt64
+    public var specVersion: UInt64
+    public var implVersion: UInt64
+    public var apis: [[EthereumData: UInt64]]
+    public var transactionVersion: UInt64
+    public var stateVersion: UInt64
 }
 
-struct StateCallResponse: JSONRpcResponse, Codable {
-    var id: UInt16?
-    var jsonrpc: String?
-    var error: JsonRpcError?
-    var result: EthereumData?
+public struct StateCallResponse: JSONRpcResponse, Codable {
+    public var id: UInt16?
+    public var jsonrpc: String?
+    public var error: JsonRpcError?
+    public var result: EthereumData?
 }
 
-struct Weight {
-    var refTime: BigUInt
-    var proofSize: BigUInt
+public struct Weight {
+    public var refTime: BigUInt
+    public var proofSize: BigUInt
 }
 
 public struct RuntimeDispatchInfo {
-    var weight: Weight
-    var `class`: Int
-    var partialFee: BigUInt
+    public var weight: Weight
+    public var `class`: Int
+    public var partialFee: BigUInt
     
     init(src: Data) throws {
         let data = src.bytes
@@ -52,7 +52,7 @@ public struct RuntimeDispatchInfo {
     }
 }
 
-enum StateCallQuery: String, Codable {
+public enum StateCallQuery: String, Codable {
     case TransactionPaymentApiQueryInfo = "TransactionPaymentApi_query_info"
 }
 

@@ -6,33 +6,33 @@ public let ERC721_ABI = ERC721_PRECOMPILE_ABI
 public let FEE_PROXY_ABI = FEE_PROXY_PRECOMPILE_ABI
 
 // Precompile address for nft precompile is 1721
-let NFT_PRECOMPILE_ADDRESS = "0x00000000000000000000000000000000000006b9"
+public let NFT_PRECOMPILE_ADDRESS = "0x00000000000000000000000000000000000006b9"
 // Precompile address for sft precompile is 1731
-let SFT_PRECOMPILE_ADDRESS = "0x00000000000000000000000000000000000006c3"
+public let SFT_PRECOMPILE_ADDRESS = "0x00000000000000000000000000000000000006c3"
 // Precompile address for futurepass registrar precompile is 65535
-let FUTUREPASS_REGISTRAR_PRECOMPILE_ADDRESS = "0x000000000000000000000000000000000000FFFF"
+public let FUTUREPASS_REGISTRAR_PRECOMPILE_ADDRESS = "0x000000000000000000000000000000000000FFFF"
 
 // Precompile address for peg precompile is 1939
-let PEG_PRECOMPILE_ADDRESS = "0x0000000000000000000000000000000000000793"
+public let PEG_PRECOMPILE_ADDRESS = "0x0000000000000000000000000000000000000793"
 
 // Precompile address for dex precompile
-let DEX_PRECOMPILE_ADDRESS = "0x000000000000000000000000000000000000DDDD"
+public let DEX_PRECOMPILE_ADDRESS = "0x000000000000000000000000000000000000DDDD"
 
 // Precompile address for fee proxy
-let FEE_PROXY_PRECOMPILE_ADDRESS = "0x00000000000000000000000000000000000004bb"
+public let FEE_PROXY_PRECOMPILE_ADDRESS = "0x00000000000000000000000000000000000004bb"
 
 /** ABIs */
 
-let SFT_PRECOMPILE_ABI = [
+public let SFT_PRECOMPILE_ABI = [
     "event InitializeSftCollection(address indexed collectionOwner, address indexed precompileAddress)",
     "function initializeCollection(address owner, bytes name, bytes metadataPath, address[] royaltyAddresses, uint32[] royaltyEntitlements) returns (address, uint32)",
 ]
 
-let FEE_PROXY_PRECOMPILE_ABI = [
+public let FEE_PROXY_PRECOMPILE_ABI = [
     "function callWithFeePreferences(address asset, uint128 maxPayment, address target, bytes input)",
 ]
 
-let ERC20_PRECOMPILE_ABI = [
+public let ERC20_PRECOMPILE_ABI = [
     "event Transfer(address indexed from, address indexed to, uint256 value)",
     "event Approval(address indexed owner, address indexed spender, uint256 value)",
     "function approve(address spender, uint256 amount) public returns (Bool)",
@@ -44,19 +44,19 @@ let ERC20_PRECOMPILE_ABI = [
     "function transfer(address who, uint256 amount)",
 ]
 
-let NFT_PRECOMPILE_ABI = [
+public let NFT_PRECOMPILE_ABI = [
     "event InitializeCollection(address indexed collectionOwner, address precompileAddress)",
     "function initializeCollection(address owner, bytes name, uint32 maxIssuance, bytes metadataPath, address[] royaltyAddresses, uint32[] royaltyEntitlements) returns (address, uint32)",
 ]
 
-let OWNABLE_ABI = [
+public let OWNABLE_ABI = [
     "event OwnershipTransferred(address indexed previousOwner, address indexed newOwner)",
     "function owner() public view returns (address)",
     "function renounceOwnership()",
     "function transferOwnership(address owner)",
 ]
 
-let ERC721_PRECOMPILE_ABI = [
+public let ERC721_PRECOMPILE_ABI = [
     // ERC721
     "event Transfer(address indexed from, address indexed to, uint256 indexed tokenId)",
     "event Approval(address indexed owner, address indexed approved, uint256 indexed tokenId)",
@@ -89,7 +89,7 @@ let ERC721_PRECOMPILE_ABI = [
     // Ownable
 ] + OWNABLE_ABI
 
-let ERC1155_PRECOMPILE_ABI = [
+public let ERC1155_PRECOMPILE_ABI = [
     // ERC1155
     "event TransferSingle(address indexed operator, address indexed from, address indexed to, uint256 id, uint256 value)",
     "event TransferBatch(address indexed operator, address indexed from, address indexed to, uint256[] ids, uint256[] balances)",
@@ -127,7 +127,7 @@ let ERC1155_PRECOMPILE_ABI = [
     // Ownable
 ] + OWNABLE_ABI
 
-let FUTUREPASS_PRECOMPILE_ABI = [
+public let FUTUREPASS_PRECOMPILE_ABI = [
     // Futurepass
     "event FuturepassDelegateRegistered(address indexed futurepass, address indexed delegate, uint8 proxyType)",
     "event FuturepassDelegateUnregistered(address indexed futurepass, address delegate)",
@@ -143,13 +143,13 @@ let FUTUREPASS_PRECOMPILE_ABI = [
     // Ownable
 ] + OWNABLE_ABI
 
-let FUTUREPASS_REGISTRAR_PRECOMPILE_ABI = [
+public let FUTUREPASS_REGISTRAR_PRECOMPILE_ABI = [
     "event FuturepassCreated(address indexed futurepass, address owner)",
     "function futurepassOf(address owner) external view returns (address)",
     "function create(address owner) external returns (address)",
 ]
 
-let DEX_PRECOMPILE_ABI = [
+public let DEX_PRECOMPILE_ABI = [
     "function addLiquidity(address tokenA, address tokenB, uint256 amountADesired, uint256 amountBDesired, uint256 amountAMin, uint256 amountBMin, address to, uint256 deadline) returns (uint256 amountA, uint256 amountB, uint256 liquidity)",
     "function addLiquidityETH(address token, uint256 amountTokenDesired, uint256 amountTokenMin, uint256 amountETHMin, address to, uint256 deadline) payable returns (uint256 amountToken, uint256 amountETH, uint256 liquidity)",
     "function getAmountIn(uint256 amountOut, uint256 reserveIn, uint256 reserveOut) pure returns (uint256 amountIn)",

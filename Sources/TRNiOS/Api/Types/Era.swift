@@ -1,10 +1,10 @@
 import Foundation
 
-struct Mortal {
-    let period: UInt64
-    let quantizedPhase: UInt64
+public struct Mortal {
+    public let period: UInt64
+    public let quantizedPhase: UInt64
 
-    init(period: UInt64 = 80, current: UInt64) {
+    public init(period: UInt64 = 80, current: UInt64) {
         // Calculate the next power of two
         let nextPowerOfTwo = period.nextPowerOfTwo()
 
@@ -24,11 +24,11 @@ struct Mortal {
         self.quantizedPhase = quantizedPhase
     }
     
-    func toMortalEra() -> MortalEra {
+    public func toMortalEra() -> MortalEra {
         return MortalEra(mortalEra: self.toU8a())
     }
     
-    func toU8a() -> Data {
+    public func toU8a() -> Data {
         let period = Int(self.period)
         let trailingZeros = max(1, getTrailingZeros(UInt64(period)) - 1)
         let encoded = min(15, trailingZeros) + ((Int(self.quantizedPhase) / max(period >> 12, 1)) << 4)
@@ -40,13 +40,13 @@ struct Mortal {
         return Data(byteArray)
     }
     
-    func getTrailingZeros(_ value: UInt64) -> Int {
+    public func getTrailingZeros(_ value: UInt64) -> Int {
        return value == 0 ? 64 : (value.trailingZeroBitCount)
    }
 }
 
 extension UInt64 {
-    func nextPowerOfTwo() -> UInt64 {
+    public func nextPowerOfTwo() -> UInt64 {
         var value = self
         value -= 1
         value |= value >> 1

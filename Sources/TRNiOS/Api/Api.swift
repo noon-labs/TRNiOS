@@ -7,8 +7,8 @@ public enum Chain {
 }
 
 public class Api {
-    let url: URL
-    let genesisHash: EthereumData
+    public let url: URL
+    public let genesisHash: EthereumData
     public init(chain: Chain) throws {
         switch(chain) {
         case .root:
@@ -22,7 +22,7 @@ public class Api {
     
 }
 
-enum RpcMethod: String, Codable {
+public enum RpcMethod: String, Codable {
     // account
     case AccountNextIndex = "account_nextIndex"
     
@@ -39,16 +39,16 @@ enum RpcMethod: String, Codable {
     case StateCall = "state_call"
 }
 
-struct JSONRpcRequset: Codable {
-    var id: UInt16 = UInt16.random(in: 1...UInt16.max)
-    var jsonrpc: String = "2.0"
-    var method: RpcMethod
-    var params: [String]
+public struct JSONRpcRequset: Codable {
+    public var id: UInt16 = UInt16.random(in: 1...UInt16.max)
+    public var jsonrpc: String = "2.0"
+    public var method: RpcMethod
+    public var params: [String]
 }
 
-struct JsonRpcError: Codable {
-    var code: Int
-    var message: String
+public struct JsonRpcError: Codable {
+    public var code: Int
+    public var message: String
 }
 
 protocol JSONRpcResponse: Codable {

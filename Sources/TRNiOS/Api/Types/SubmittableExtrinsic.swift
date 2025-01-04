@@ -3,10 +3,10 @@ import BigInt
 import Web3
 
 public struct SubmittableExtrinsic {
-    var signature: Signature
-    var method: Method
+    public var signature: Signature
+    public var method: Method
     
-    mutating func sign(privateKey: EthereumPrivateKey, runtimeVersion: RuntimeVersion, genensisHash: EthereumData, blockHash: EthereumData) throws {
+    public mutating func sign(privateKey: EthereumPrivateKey, runtimeVersion: RuntimeVersion, genensisHash: EthereumData, blockHash: EthereumData) throws {
         let payload = try getPayload(runtimeVersion: runtimeVersion, genensisHash: genensisHash, blockHash: blockHash)
         let sig = try privateKey.sign(message: payload)
 
@@ -14,7 +14,7 @@ public struct SubmittableExtrinsic {
         signature.signer = privateKey.address
     }
     
-    func getPayload(runtimeVersion: RuntimeVersion, genensisHash: EthereumData, blockHash: EthereumData) throws -> [UInt8] {
+    public func getPayload(runtimeVersion: RuntimeVersion, genensisHash: EthereumData, blockHash: EthereumData) throws -> [UInt8] {
         var payload: [UInt8] = method.toU8a()
         payload += signature.era.mortalEra.bytes
         payload += try compactToU8a(signature.nonce.quantity)
@@ -27,7 +27,7 @@ public struct SubmittableExtrinsic {
         return payload
     }
     
-    func toU8a() throws -> [UInt8] {
+    public func toU8a() throws -> [UInt8] {
         var u8a:[UInt8] = [132] // version 4 signed(128)
         
         u8a += try signature.toU8a()
@@ -39,20 +39,20 @@ public struct SubmittableExtrinsic {
         return count + u8a
     }
     
-    func toHex() throws -> String {
+    public func toHex() throws -> String {
         let u8aHex = try self.toU8a().toHexString()
         return "0x" + u8aHex
     }
 }
 
-struct Signature: Codable {
-    var signer: EthereumAddress?
-    var signature: EthereumData? = EthereumData([UInt8](repeating: 1, count: 65))
-    var era: MortalEra
-    var nonce: EthereumQuantity
-    var tip: EthereumQuantity
+public struct Signature: Codable {
+    public var signer: EthereumAddress?
+    public var signature: EthereumData? = EthereumData([UInt8](repeating: 1, count: 65))
+    public var era: MortalEra
+    public var nonce: EthereumQuantity
+    public var tip: EthereumQuantity
     
-    func toU8a() throws -> [UInt8] {
+    public func toU8a() throws -> [UInt8] {
         guard let signer = signer else {
             throw NSError(domain: "api", code: 0, userInfo: [NSLocalizedDescriptionKey: "empty signer"])
         }
@@ -71,6 +71,6 @@ struct Signature: Codable {
     }
 }
 
-struct MortalEra: Codable {
-    var mortalEra: Data
+public struct MortalEra: Codable {
+    public var mortalEra: Data
 }

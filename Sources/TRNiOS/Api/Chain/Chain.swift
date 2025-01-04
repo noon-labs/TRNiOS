@@ -2,39 +2,39 @@ import Foundation
 import Alamofire
 import Web3
 
-struct ChainGetBlockResponse: JSONRpcResponse, Codable {
-    var id: UInt16?
-    var jsonrpc: String?
-    var error: JsonRpcError?
-    var result: BlockResult?
+public struct ChainGetBlockResponse: JSONRpcResponse, Codable {
+    public var id: UInt16?
+    public var jsonrpc: String?
+    public var error: JsonRpcError?
+    public var result: BlockResult?
 }
 
-struct ChainBlockHashResponse: JSONRpcResponse, Codable {
-    var id: UInt16?
-    var jsonrpc: String?
-    var error: JsonRpcError?
-    var result: EthereumData?
+public struct ChainBlockHashResponse: JSONRpcResponse, Codable {
+    public var id: UInt16?
+    public var jsonrpc: String?
+    public var error: JsonRpcError?
+    public var result: EthereumData?
 }
 
-struct BlockResult: Codable {
-    var block: Block
+public struct BlockResult: Codable {
+    public var block: Block
 }
 
 public struct Block: Codable {
-    var header: Header
-    var extrinsics: [EthereumData]
+    public var header: Header
+    public var extrinsics: [EthereumData]
 }
 
-struct Header: Codable {
-    var parentHash: EthereumData
-    var number: EthereumQuantity
-    var stateRoot: EthereumData
-    var extrinsicsRoot: EthereumData
-    var digest: Log
+public struct Header: Codable {
+    public var parentHash: EthereumData
+    public var number: EthereumQuantity
+    public var stateRoot: EthereumData
+    public var extrinsicsRoot: EthereumData
+    public var digest: Log
 }
 
-struct Log: Codable {
-    var logs: [EthereumData]
+public struct Log: Codable {
+    public var logs: [EthereumData]
 }
 
 
