@@ -6,6 +6,11 @@ public struct SubmittableExtrinsic {
     public var signature: Signature
     public var method: Method
     
+    public init(signature: Signature, method: Method) {
+        self.signature = signature
+        self.method = method
+    }
+    
     public mutating func sign(privateKey: EthereumPrivateKey, runtimeVersion: RuntimeVersion, genensisHash: EthereumData, blockHash: EthereumData) throws {
         let payload = try getPayload(runtimeVersion: runtimeVersion, genensisHash: genensisHash, blockHash: blockHash)
         let sig = try privateKey.sign(message: payload)
@@ -47,10 +52,22 @@ public struct SubmittableExtrinsic {
 
 public struct Signature: Codable {
     public var signer: EthereumAddress?
-    public var signature: EthereumData? = EthereumData([UInt8](repeating: 1, count: 65))
+    public var signature: EthereumData?
     public var era: MortalEra
     public var nonce: EthereumQuantity
     public var tip: EthereumQuantity
+    
+    public init(signer: EthereumAddress? = nil,
+                signature: EthereumData? = EthereumData([UInt8](repeating: 1, count: 65)),
+                era: MortalEra,
+                nonce: EthereumQuantity,
+                tip: EthereumQuantity) {
+        self.signer = signer
+        self.signature = signature
+        self.era = era
+        self.nonce = nonce
+        self.tip = tip
+    }
     
     public func toU8a() throws -> [UInt8] {
         guard let signer = signer else {
