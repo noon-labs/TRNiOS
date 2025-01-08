@@ -35,7 +35,7 @@ public struct WithdrawXrpArgs {
 }
 
 public struct MethodFeeProxy: Method {
-    public let callIndex: [UInt8] = Data(hex: "1f00").bytes
+    public let callIndex: [UInt8] = Data(hex: "2204").bytes
     public var args: FeeProxyArgs
 
     public init(args: FeeProxyArgs) {
