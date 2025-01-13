@@ -8,8 +8,24 @@ public protocol Method {
     func toU8a() -> [UInt8]
 }
 
+//public struct MethodWithdrawXrpWithRoot: Method {
+//    public let callIndex: [UInt8] = Data(hex: "120f").bytes
+//    public var args: WithdrawXrpArgs
+//
+//    public init(args: WithdrawXrpArgs) {
+//        self.args = args
+//    }
+//    
+//    public func toU8a() -> [UInt8] {
+//        var u8a = callIndex
+//        u8a += bnToU8a(bn: args.amount.quantity, bitLength: 128)
+//        u8a += args.destination.rawAddress
+//        return u8a
+//    }
+//}
+
 public struct MethodWithdrawXrp: Method {
-    public let callIndex: [UInt8] = Data(hex: "1203").bytes
+    public let callIndex: [UInt8] = Data(hex: "120f").bytes
     public var args: WithdrawXrpArgs
 
     public init(args: WithdrawXrpArgs) {
@@ -35,7 +51,7 @@ public struct WithdrawXrpArgs {
 }
 
 public struct MethodFeeProxy: Method {
-    public let callIndex: [UInt8] = Data(hex: "2204").bytes
+    public let callIndex: [UInt8] = Data(hex: "1f00").bytes
     public var args: FeeProxyArgs
 
     public init(args: FeeProxyArgs) {
