@@ -25,7 +25,7 @@ public protocol Method {
 //}
 
 public struct MethodWithdrawXrp: Method {
-    public let callIndex: [UInt8] = Data(hex: "120f").bytes
+    public let callIndex: [UInt8] = Data(hex: "1203").bytes
     public var args: WithdrawXrpArgs
 
     public init(args: WithdrawXrpArgs) {
