@@ -5,12 +5,12 @@ import Web3
 final class TestBridge: XCTestCase {
     func testBridge() async throws {
         // 0. initialized api
-        let api = try Api(chain: .porcini)
-        let senderPrivateKey = try EthereumPrivateKey(hexPrivateKey: "0xf28c395640d7cf3a8b415d12f741a0299b34cb0c7af7d2ba6440d9f2d3880d65")
+        let api = try Api(chain: .root)
+        let senderPrivateKey = try EthereumPrivateKey(hexPrivateKey: "0xf2155a0a177e9675758cfba46780ec7bde93212e0947cefbcfd37ea2c85df2dc")
         
         // 1. initial bridge call method
-        let destination = EthereumAddress(hexString: "0x72ee785458b89d5ec64bec8410c958602e6f7673")!
-        let amount = EthereumQuantity(quantity: BigUInt(1000000))
+        let destination = EthereumAddress(hexString: "0x335bff21a8531dc23fe854bc31ac600b05cfe290")!
+        let amount = EthereumQuantity(quantity: BigUInt(100000))
         let method = MethodWithdrawXrp(args: WithdrawXrpArgs(amount: amount, destination: destination))
         
         
@@ -34,23 +34,23 @@ final class TestBridge: XCTestCase {
         
         // 5. broadcast
         let extrinsicHash = try await api.authorSubmitExtrinsic(encodedData: extrinsic.toHex())
-        
+        print("KUSH DONE?")
         print(extrinsicHash)
         XCTAssertEqual(extrinsicHash.bytes.count, 32)
     }
     
     func testBridgeWithFeeProxy() async throws {
         // 0. initialized api
-        let api = try Api(chain: .porcini)
-        let senderPrivateKey = try EthereumPrivateKey(hexPrivateKey: "0xf28c395640d7cf3a8b415d12f741a0299b34cb0c7af7d2ba6440d9f2d3880d65")
+        let api = try Api(chain: .root)
+        let senderPrivateKey = try EthereumPrivateKey(hexPrivateKey: "0xf2155a0a177e9675758cfba46780ec7bde93212e0947cefbcfd37ea2c85df2dc")
         
-        let url = getPublicProviderUrl(network: NetworkName.porcini)
-        let provider = getWeb3Provider(url: url, networkName: NetworkName.porcini)
+        let url = getPublicProviderUrl(network: NetworkName.root)
+        let provider = getWeb3Provider(url: url, networkName: NetworkName.root)
         let web3 = Web3(provider: provider)
         
         // 1. initial fee proxy bridge call method
-        let destination = EthereumAddress(hexString: "0x72ee785458b89d5ec64bec8410c958602e6f7673")!
-        let amount = EthereumQuantity(quantity: BigUInt(1000000))
+        let destination = EthereumAddress(hexString: "0x335bff21a8531dc23fe854bc31ac600b05cfe290")!
+        let amount = EthereumQuantity(quantity: BigUInt(100000))
         
         var method = MethodFeeProxy(
             args: FeeProxyArgs(
@@ -104,7 +104,7 @@ final class TestBridge: XCTestCase {
         
         // 6. broadcast
         let extrinsicHash = try await api.authorSubmitExtrinsic(encodedData: extrinsic.toHex())
-        
+        print("KUSH DONE!?")
         print(extrinsicHash)
         XCTAssertEqual(extrinsicHash.bytes.count, 32)
     }
