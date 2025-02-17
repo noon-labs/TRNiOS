@@ -34,6 +34,49 @@ public struct WithdrawXrpArgs {
     }
 }
 
+public struct MethodWithdraw: Method {
+    public let callIndex: [UInt8] = Data(hex: "120f").bytes
+    public var args: WithdrawArgs
+    
+    public init(args: WithdrawArgs) {
+        self.args = args
+    }
+    
+    public func toU8a() -> [UInt8] {
+        var u8a = callIndex
+        u8a += bnToU8a(bn: args.assetId.quantity, bitLength: 32)  // asset_id is u32
+        u8a += bnToU8a(bn: args.amount.quantity, bitLength: 128)
+        u8a += args.destination.rawAddress
+        
+        // Handle optional destination tag
+        if let destinationTag = args.destinationTag {
+            u8a += [0x01] // Some variant for Option
+            u8a += bnToU8a(bn: destinationTag.quantity, bitLength: 32)
+        } else {
+            u8a += [0x00] // None variant for Option
+        }
+        
+        return u8a
+    }
+}
+
+public struct WithdrawArgs {
+    public let assetId: EthereumQuantity
+    public let amount: EthereumQuantity
+    public let destination: EthereumAddress
+    public let destinationTag: EthereumQuantity?
+    
+    public init(assetId: EthereumQuantity,
+                amount: EthereumQuantity,
+                destination: EthereumAddress,
+                destinationTag: EthereumQuantity? = nil) {
+        self.assetId = assetId
+        self.amount = amount
+        self.destination = destination
+        self.destinationTag = destinationTag
+    }
+}
+
 public struct MethodFeeProxy: Method {
     public let callIndex: [UInt8] = Data(hex: "1f00").bytes
     public var args: FeeProxyArgs
@@ -54,9 +97,9 @@ public struct MethodFeeProxy: Method {
 public struct FeeProxyArgs {
     public let paymentAsset: BigUInt
     public var maxPayment: BigUInt
-    public let call: MethodWithdrawXrp
+    public let call: Method
     
-    public init(paymentAsset: BigUInt, maxPayment: BigUInt, call: MethodWithdrawXrp) {
+    public init(paymentAsset: BigUInt, maxPayment: BigUInt, call: Method) {
         self.paymentAsset = paymentAsset
         self.maxPayment = maxPayment
         self.call = call
