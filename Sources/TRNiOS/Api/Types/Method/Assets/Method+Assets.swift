@@ -18,11 +18,11 @@ public struct MethodAssetsTransfer: Method {
         self.args = args
     }
     
-    public func toU8a() -> [UInt8] {
+    public func toU8a() throws -> [UInt8] {
         var u8a = callIndex
-        u8a += bnToU8a(bn: args.id.quantity, bitLength: 32)
+        u8a += try compactToU8a(args.id.quantity)
         u8a += args.target.rawAddress
-        u8a += bnToU8a(bn: args.amount.quantity, bitLength: 128)
+        u8a += try compactToU8a(args.amount.quantity)
         
         return u8a
     }

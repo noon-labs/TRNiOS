@@ -17,7 +17,7 @@ public struct MethodWithdrawXrp: Method {
         self.args = args
     }
     
-    public func toU8a() -> [UInt8] {
+    public func toU8a() throws -> [UInt8] {
         var u8a = callIndex
         u8a += bnToU8a(bn: args.amount.quantity, bitLength: 128)
         u8a += args.destination.rawAddress
@@ -43,7 +43,7 @@ public struct MethodWithdraw: Method {
         self.args = args
     }
     
-    public func toU8a() -> [UInt8] {
+    public func toU8a() throws -> [UInt8] {
         var u8a = callIndex
         u8a += bnToU8a(bn: args.assetId.quantity, bitLength: 32)  // asset_id is u32
         u8a += bnToU8a(bn: args.amount.quantity, bitLength: 128)

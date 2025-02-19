@@ -18,10 +18,10 @@ public struct MethodBalancesTransfer: Method {
         self.args = args
     }
     
-    public func toU8a() -> [UInt8] {
+    public func toU8a() throws -> [UInt8] {
         var u8a = callIndex
         u8a += args.dest.rawAddress
-        u8a += bnToU8a(bn: args.value.quantity, bitLength: 128)
+        u8a += try compactToU8a(args.value.quantity)
         
         return u8a
     }

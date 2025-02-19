@@ -20,7 +20,7 @@ public struct SubmittableExtrinsic {
     }
     
     public func getPayload(runtimeVersion: RuntimeVersion, genensisHash: EthereumData, blockHash: EthereumData) throws -> [UInt8] {
-        var payload: [UInt8] = method.toU8a()
+        var payload: [UInt8] = try method.toU8a()
         payload += signature.era.mortalEra.bytes
         payload += try compactToU8a(signature.nonce.quantity)
         payload += bnToU8a(bn: signature.tip.quantity)
@@ -36,7 +36,7 @@ public struct SubmittableExtrinsic {
         var u8a:[UInt8] = [132] // version 4 signed(128)
         
         u8a += try signature.toU8a()
-        u8a += method.toU8a()
+        u8a += try method.toU8a()
         
         let count = try compactToU8a(BigUInt(u8a.count))
         
