@@ -13,19 +13,21 @@ public func bnToU8aLittleEndian(value: BigUInt, bitLength: Int) -> [UInt8] {
 
 public func compactToU8a(_ value: BigUInt) throws -> [UInt8] {
     if value <= MAX_U8 {
-        return [try UInt8(value << 2)]
+        return [UInt8(truncatingIfNeeded: value) << 2]
     } else if value <= MAX_U16 {
-        let shiftedValue = (value << 2) + 1
-        return bnToU8aLittleEndian(value: shiftedValue, bitLength: 16)
+        var bytes = bnToU8aLittleEndian(value: value, bitLength: 16)
+        bytes[0] |= 0b01
+        return bytes
     } else if value <= MAX_U32 {
-        let shiftedValue = (value << 2) + 2
-        return bnToU8aLittleEndian(value: shiftedValue, bitLength: 32)
+        var bytes = bnToU8aLittleEndian(value: value, bitLength: 32)
+        bytes[0] |= 0b10
+        return bytes
     }
     
     let u8a = bnToU8a(bn: value)
     var length = u8a.count
     
-    while(u8a[length - 1] == 0) {
+    while length > 0 && u8a[length - 1] == 0 {
         length -= 1
     }
     
@@ -34,10 +36,9 @@ public func compactToU8a(_ value: BigUInt) throws -> [UInt8] {
     }
     
     return u8aConcatStrict(u8as: [
-        // subtract 4 as minimum (also catered for in decoding)
-        [UInt8((length - 4) << 2) + 0b11],
+        [UInt8((length - 4) << 2) | 0b11],
         Array(u8a[0..<length])
-      ])
+    ])
 }
 
 public func bnToU8a(bn: BigUInt, bitLength: Int = -1, isLe: Bool = true) -> [UInt8] {
