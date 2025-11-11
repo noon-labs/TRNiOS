@@ -18,7 +18,8 @@ let package = Package(
     dependencies: [
         .package(url: "https://github.com/Girin-app/Web3.swift.git", .upToNextMajor(from: "0.9.0")),
         .package(url: "https://github.com/Girin-app/WalletKit", .upToNextMajor(from: "0.1.1")),
-        .package(url: "https://github.com/Alamofire/Alamofire.git", .upToNextMajor(from: "5.9.1"))
+        .package(url: "https://github.com/Alamofire/Alamofire.git", .upToNextMajor(from: "5.9.1")),
+        .package(url: "https://github.com/tesseract-one/Blake2.swift.git", .upToNextMajor(from: "0.2.0"))
     ],
     targets: [
         // Targets are the basic building blocks of a package, defining a module or a test suite.
@@ -30,7 +31,8 @@ let package = Package(
                 .product(name: "Web3PromiseKit", package: "Web3.swift"),
                 .product(name: "Web3ContractABI", package: "Web3.swift"),
                 .product(name: "WalletKit", package: "WalletKit"),
-                .product(name: "Alamofire", package: "Alamofire")
+                .product(name: "Alamofire", package: "Alamofire"),
+                .product(name: "Blake2", package: "Blake2.swift")
             ]
         ),
         .testTarget(
