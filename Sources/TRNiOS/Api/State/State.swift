@@ -39,11 +39,11 @@ public struct RuntimeDispatchInfo {
     public var partialFee: BigUInt
     
     init(src: Data) throws {
-        let data = src.bytes
+        let data = [UInt8](src)
         let (offset1, refTime) = decodeCompact(u8a: data)
         let (offset2, proofSize) = decodeCompact(u8a: Array(data[offset1..<data.count]))
         let classValue = Int(data[offset1 + offset2])
-        let a: [UInt8] = data[offset1 + offset2 + 1..<data.count].reversed()
+        let a: [UInt8] = Array(data[(offset1 + offset2 + 1)..<data.count].reversed())
         let partialFee = BigUInt(a)
 
         self.weight = Weight(refTime: refTime, proofSize: proofSize)

@@ -10,7 +10,7 @@ import BigInt
 import Web3
 
 public struct MethodWithdrawXrp: Method {
-    public let callIndex: [UInt8] = Data(hex: "1203").bytes
+    public let callIndex: [UInt8] = [UInt8](Data(hex: "1203"))
     public var args: WithdrawXrpArgs
 
     public init(args: WithdrawXrpArgs) {
@@ -36,7 +36,7 @@ public struct WithdrawXrpArgs {
 }
 
 public struct MethodWithdraw: Method {
-    public let callIndex: [UInt8] = Data(hex: "120f").bytes
+    public let callIndex: [UInt8] = [UInt8](Data(hex: "120f"))
     public var args: WithdrawArgs
     
     public init(args: WithdrawArgs) {

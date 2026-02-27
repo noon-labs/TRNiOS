@@ -81,7 +81,7 @@ extension Api {
                     // 현재 블록의 extrinsics에서 hash 찾기
                     for (idx, extrinsic) in currentBlock.extrinsics.enumerated() {
                         let extrinsicHash = try Blake2b.hash(size: 32, data: extrinsic.bytes)
-                        let extrinsicHashData = EthereumData(extrinsicHash.bytes)
+                        let extrinsicHashData = try EthereumData(extrinsicHash)
                         if extrinsicHashData.hex() == hash.hex() {
                             let blockNumber = try UInt64(currentBlock.header.number.quantity)
                             return "\(blockNumber)-\(idx)"

@@ -11,7 +11,7 @@ import Web3
 
 /// For transferring ROOT
 public struct MethodBalancesTransfer: Method {
-    public let callIndex: [UInt8] = Data(hex: "0507").bytes
+    public let callIndex: [UInt8] = [UInt8](Data(hex: "0507"))
     public var args: BalancesTransferArgs
     
     public init(args: BalancesTransferArgs) {

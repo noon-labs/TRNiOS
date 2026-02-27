@@ -11,7 +11,7 @@ import Web3
 
 /// For transferring tokens (XRP supported, ROOT not supported)
 public struct MethodAssetsTransfer: Method {
-    public let callIndex: [UInt8] = Data(hex: "0608").bytes
+    public let callIndex: [UInt8] = [UInt8](Data(hex: "0608"))
     public var args: AssetsTransferArgs
     
     public init(args: AssetsTransferArgs) {
